@@ -63,8 +63,7 @@ Once the controller instance is no longer needed by your application code, the i
 	@implementation MenuController
 	
 	-(IBAction)buttonTapped {
-		MyViewController *controller =
-		[[DEViewControllerCache defaultCache] controllerForClass:MyViewController.class];
+		MyViewController *controller = [DEViewControllerCache controllerForClass:MyViewController.class];
 
 		// customize/provide data to the controller as necessary
 		controller.date = [NSDate date];
@@ -134,13 +133,13 @@ Also, in the event that calling any of these methods occurs while a repopulation
 
 	-(void)someMethod {
 		// remove a controller instance from the cache
-		[[DEViewControllerCache defaultCache] removeControllerFromCache:self.myViewController];
+		[DEViewControllerCache removeControllerFromCache:self.myViewController];
 		
 		// remove all controller instances of a class from the cache
-		[[DEViewControllerCache defaultCache] removeClassInstancesFromCache:MyViewController.class];
+		[DEViewControllerCache removeClassInstancesFromCache:MyViewController.class];
 		
 		// remove all controller instances of all classes from the cache
-		[[DEViewControllerCache defaultCache] removeAllClassInstancesFromCache];
+		[DEViewControllerCache removeAllClassInstancesFromCache];
 	}
 	
 	@end
