@@ -58,9 +58,7 @@
 
 -(void)dealloc {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver: self
-                  name: UIApplicationDidReceiveMemoryWarningNotification
-                object: nil];
+    [nc removeObserver:self];
 }
 
 @end
