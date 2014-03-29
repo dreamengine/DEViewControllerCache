@@ -75,11 +75,11 @@ Once the controller instance is no longer needed by your application code, the i
 	
 ### Automatic Instantiation
 
-`DEViewControllerCache` will automatically instantiate a controller if the cache does not have an object of the same subclass already available. To accomplish this, `DEViewControllerCache` requires that the `UIViewController` subclass either uses a nib with a matching filename (e.g. MyCustomViewController.xib for MyCustomViewController) or that the subclass has a programmatically-defined user interface (i.e. no nibs at all). This is accomplished using `UIViewController+DEConveniences`.
+`DEViewControllerCache` will automatically instantiate a controller if the cache does not have an object of the same subclass already available. To accomplish this, `DEViewControllerCache` requires that the `UIViewController` subclass either uses a nib with a matching filename (e.g. MyCustomViewController.xib for MyCustomViewController) or that the subclass has a programmatically-defined user interface (i.e. no nibs at all). This is accomplished using `DECategories/UIViewController+DEConveniences`.
 
 ### UIViewController Category
 
-When a `UIViewController` instance is going to be reused, it may sometimes make sense to clean up the instance before displaying it to the user again. For example, if a login controller instance has username and password `UITextFields` that have previously been filled in, those fields should first be cleared before displaying the controller again.
+When a `UIViewController` instance is going to be reused, it may sometimes make sense to clean up the instance before displaying it to the user again. For example, if a login controller instance has username and password `UITextFields` that have previously been filled in, those fields should first be cleared before once more displaying the controller.
 
 To utilize this feature, simply add a method `-willBeReused` to your controllers and perform whatever necessary cleanup in there. `DEViewControllerCache` will call that method when the reused controller is about to be returned from `-controllerForClass:`.
 
@@ -100,7 +100,7 @@ Also note that `-willBeReused` is an optional method, so `DEViewControllerCache`
 		self.passwordField.text = @"";
 		
 		self.usernameField.enabled = YES;
-		self.usernameField.enabled = YES;
+		self.passwordField.enabled = YES;
 	}
 	
 	@end
@@ -113,7 +113,7 @@ The first tier is instance specific. To remove a particular instance from a cach
 
 The second tier is class specific. To remove all instances of a particular `UIViewController` subclass from a cache, use `-removeClassInstancesFromCache:`.
 
-The third tier is cache specific. To remove all instances of all `UIViewController` subclasses from a cache, use `removeAllClassInstancesFromCache`.
+The third tier is cache specific. To remove all instances of all `UIViewController` subclasses from a cache, use `-removeAllClassInstancesFromCache`.
 
 Note that these methods will not trigger a repopulation event, so it is guaranteed that manually removing a controller that is currently in use will actually remove it from the cache system.
 
