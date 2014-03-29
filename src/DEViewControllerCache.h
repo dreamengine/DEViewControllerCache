@@ -105,7 +105,7 @@
  Forces removal of all instances of all controller classes from the cache.
  
  */
--(void)emptyCache;
+-(void)removeAllClassInstancesFromCache;
 
 
 #pragma mark - Default Cache Convenience Methods
@@ -116,6 +116,6 @@
 
 +(void)removeClassInstancesFromCache:(Class)controllerClass;
 
-+(void)emptyCache;
++(void)removeAllClassInstancesFromCache;
 
 @end

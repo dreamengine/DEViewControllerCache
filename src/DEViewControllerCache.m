@@ -292,8 +292,8 @@
     [[self defaultCache] removeClassInstancesFromCache:controllerClass];
 }
 
-+(void)emptyCache {
-    [[self defaultCache] emptyCache];
++(void)removeAllClassInstancesFromCache {
+    [[self defaultCache] removeAllClassInstancesFromCache];
 }
 
 @end
