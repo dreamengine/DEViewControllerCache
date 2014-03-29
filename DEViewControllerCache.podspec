@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'DEViewControllerCache'
-  s.version      = '0.0.1'
+  s.version      = '0.0.2'
 
   s.homepage     = 'https://github.com/dreamengine/DEViewControllerCache'
   s.author       = { 'Dream Engine Interactive, Inc.' => 'contact@dreamengine.com' }

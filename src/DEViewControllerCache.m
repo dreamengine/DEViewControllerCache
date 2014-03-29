@@ -153,13 +153,17 @@
 -(void)removeControllerFromCache:(UIViewController *)controller {
     NSMutableSet *instances = [self instancesForControllerClass:controller.class];
     [instances removeObject:controller];
+    
+    NSMutableSet *repopulationInstances = self.repopulationDictionary[(id<NSCopying>)controller.class];
+    [repopulationInstances removeObject:controller];
 }
 
 -(void)removeClassInstancesFromCache:(Class)controllerClass {
     [self.cache removeObjectForKey:controllerClass];
+    [self.repopulationDictionary removeObjectForKey:(id<NSCopying>)controllerClass];
 }
 
--(void)emptyCache {
+-(void)removeAllClassInstancesFromCache {
     [self.cache removeAllObjects];
     [self.repopulationDictionary removeAllObjects];
 }
