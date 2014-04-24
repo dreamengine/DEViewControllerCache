@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'DEViewControllerCache'
-  s.version      = '0.0.3'
+  s.version      = '0.1'
 
   s.homepage     = 'https://github.com/dreamengine/DEViewControllerCache'
   s.author       = { 'Dream Engine Interactive, Inc.' => 'contact@dreamengine.com' }
@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.source_files = 'src/*.{h,m}'
 
   s.dependency 'DECategories/UIViewController+DEConveniences'
+  s.dependency 'OSCache'
 
   s.license      = {
     :type => 'MIT',

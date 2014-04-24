@@ -25,6 +25,7 @@
 		3F97568318E0CE4E0046C09B /* DESecondController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F97568218E0CE4E0046C09B /* DESecondController.xib */; };
 		3F97568918E0F53D0046C09B /* DEViewControllerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F97568818E0F53D0046C09B /* DEViewControllerCache.m */; };
 		3FB6B8DA18E5EBA600F37C92 /* UIViewController+DEConveniences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6B8D918E5EBA600F37C92 /* UIViewController+DEConveniences.m */; };
+		3FFA499019096B7D00EBF617 /* OSCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFA498F19096B7D00EBF617 /* OSCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		3F97568818E0F53D0046C09B /* DEViewControllerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DEViewControllerCache.m; path = src/DEViewControllerCache.m; sourceTree = SOURCE_ROOT; };
 		3FB6B8D818E5EBA600F37C92 /* UIViewController+DEConveniences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DEConveniences.h"; sourceTree = "<group>"; };
 		3FB6B8D918E5EBA600F37C92 /* UIViewController+DEConveniences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DEConveniences.m"; sourceTree = "<group>"; };
+		3FFA498E19096B7D00EBF617 /* OSCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCache.h; sourceTree = "<group>"; };
+		3FFA498F19096B7D00EBF617 /* OSCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +132,7 @@
 				3F97568118E0CE190046C09B /* Second Controller */,
 				3F97567318E087CE0046C09B /* View Controller Cache */,
 				3F97567718E0B1960046C09B /* UIViewController+DEConveniences */,
+				3FFA499119096B8000EBF617 /* OSCache */,
 				3F97565318E087530046C09B /* Images.xcassets */,
 				3F97564818E087530046C09B /* Supporting Files */,
 			);
@@ -200,6 +204,15 @@
 				3F97568218E0CE4E0046C09B /* DESecondController.xib */,
 			);
 			name = "Second Controller";
+			sourceTree = "<group>";
+		};
+		3FFA499119096B8000EBF617 /* OSCache */ = {
+			isa = PBXGroup;
+			children = (
+				3FFA498E19096B7D00EBF617 /* OSCache.h */,
+				3FFA498F19096B7D00EBF617 /* OSCache.m */,
+			);
+			name = OSCache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +315,7 @@
 			files = (
 				3F97564E18E087530046C09B /* main.m in Sources */,
 				3F97567A18E0BBB10046C09B /* DEFirstController.m in Sources */,
+				3FFA499019096B7D00EBF617 /* OSCache.m in Sources */,
 				3F97568918E0F53D0046C09B /* DEViewControllerCache.m in Sources */,
 				3FB6B8DA18E5EBA600F37C92 /* UIViewController+DEConveniences.m in Sources */,
 				3F97565218E087530046C09B /* DEAppDelegate.m in Sources */,

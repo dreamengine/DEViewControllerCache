@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CCB855AF-3987-437B-BB80-280B55F1BAD0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DEViewControllerCache</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5DC3DED3-7AFB-4051-A299-FC8953472D6E</key>
+		<string>https://github.com/dreamengine/DEViewControllerCache.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DEViewControllerCache.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5DC3DED3-7AFB-4051-A299-FC8953472D6E</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/dreamengine/DEViewControllerCache.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5DC3DED3-7AFB-4051-A299-FC8953472D6E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5DC3DED3-7AFB-4051-A299-FC8953472D6E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DEViewControllerCache</string>
+		</dict>
+	</array>
+</dict>
+</plist>

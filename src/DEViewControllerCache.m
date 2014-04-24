@@ -28,37 +28,13 @@
 
 #import "UIViewController+DEConveniences.h"
 
+#import "OSCache.h"
+
 
 @implementation UIViewController (DEViewControllerCacheReuse)
 
 // fill out in subclass
 -(void)willBeReused {
-}
-
-@end
-
-
-@interface DEViewControllerInternalCache : NSCache
-@end
-
-@implementation DEViewControllerInternalCache
-
-// from: http://stackoverflow.com/a/19549090/708798
--(id)init {
-    if (self=[super init]) {
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver: self
-               selector: @selector(removeAllObjects)
-                   name: UIApplicationDidReceiveMemoryWarningNotification
-                 object: nil];
-    }
-    
-    return self;
-}
-
--(void)dealloc {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self];
 }
 
 @end
@@ -74,9 +50,7 @@
 
 @interface DEViewControllerCache () <NSCacheDelegate>
 
-@property (readonly, strong, nonatomic) DEViewControllerInternalCache *cache;
-
-@property (strong, nonatomic) NSMutableDictionary *repopulationDictionary;
+@property (readonly, strong, nonatomic) OSCache *cache;
 
 @end
 
@@ -153,57 +127,28 @@
 -(void)removeControllerFromCache:(UIViewController *)controller {
     NSMutableSet *instances = [self instancesForControllerClass:controller.class];
     [instances removeObject:controller];
-    
-    NSMutableSet *repopulationInstances = self.repopulationDictionary[(id<NSCopying>)controller.class];
-    [repopulationInstances removeObject:controller];
 }
 
 -(void)removeClassInstancesFromCache:(Class)controllerClass {
     [self.cache removeObjectForKey:controllerClass];
-    [self.repopulationDictionary removeObjectForKey:(id<NSCopying>)controllerClass];
 }
 
 -(void)removeAllClassInstancesFromCache {
     [self.cache removeAllObjects];
-    [self.repopulationDictionary removeAllObjects];
 }
 
 
 #pragma mark - NSCacheDelegate
 
--(void)cache:(NSCache *)cache willEvictObject:(id)obj {
-    if ([obj isKindOfClass:[NSMutableSet class]]) {
-        NSMutableSet *instances = (NSMutableSet *)obj;
-
-        [self removeUnusedControllersFromInstances:instances];
-
-        if (instances.count > 0) {
-            Class controllerClass = [[instances anyObject] class];
-            self.repopulationDictionary[(id<NSCopying>)controllerClass] = instances;
-        }
-    }
+-(BOOL)cache:(NSCache *)cache shouldEvictObject:(id)entry {
+    NSMutableSet *instances = [entry object];
+    [self removeUnusedControllersFromInstances:instances];
     
-    if (self.repopulationDictionary.count > 0) {
-        // check to make sure we don't have a repopulation operation already enqueued since this -cache:willEvictObject: may be called multiple times per run loop iteration
-        NSArray *operations = [[NSOperationQueue mainQueue] operations];
-
-        BOOL containsRepopulationOperation = NO;
-
-        for (NSOperation *operation in operations) {
-            if ([operation isKindOfClass:[DERepopulationBlockOperation class]]) {
-                containsRepopulationOperation = YES;
-            }
-        }
-
-        if (!containsRepopulationOperation) {
-            __weak DEViewControllerCache *weakSelf = self;
-            DERepopulationBlockOperation *repopulationOperation = [DERepopulationBlockOperation blockOperationWithBlock: ^{
-                [weakSelf repopulateCache];
-            }];
-
-            // we can't control whether or not an object should be evicted, so wait until the next run loop iteration and then repopulate the cache from our repopulation dictionary.
-            [[NSOperationQueue mainQueue] addOperation:repopulationOperation];
-        }
+    if (instances.count > 0) {
+        return NO;
+    }
+    else {
+        return YES;
     }
 }
 
@@ -223,43 +168,15 @@
 }
 
 
-#pragma mark - Repopulation
-
--(void)repopulateCache {
-    for (Class controllerClass in self.repopulationDictionary) {
-        NSMutableSet *repopulationInstances = self.repopulationDictionary[(id<NSCopying>)controllerClass];
-
-        // remove any repopulation instances that should no longer be cached
-        [self removeUnusedControllersFromInstances:repopulationInstances];
-
-        // in the event that a controller was requested before this method was called, get the set of those controllers which are now in the cache
-        NSMutableSet *instances = [self instancesForControllerClass:controllerClass];
-
-        // merge the recently-cached instances with the repopulation instances
-        [instances unionSet:repopulationInstances];
-    }
-
-    [self.repopulationDictionary removeAllObjects];
-}
-
-
 #pragma mark - Lazy Loading
 
--(DEViewControllerInternalCache *)cache {
+-(OSCache *)cache {
     if (!_cache) {
-        _cache = [DEViewControllerInternalCache new];
+        _cache = [OSCache new];
         _cache.delegate = self;
     }
 
     return _cache;
-}
-
--(NSMutableDictionary *)repopulationDictionary {
-    if (!_repopulationDictionary) {
-        _repopulationDictionary = [NSMutableDictionary dictionary];
-    }
-    
-    return _repopulationDictionary;
 }
 
 

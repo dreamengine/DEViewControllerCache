@@ -4,7 +4,7 @@
 
 ## What It Does
 
-`DEViewControllerCache` is an MIT-licensed cache system that makes `UIViewControllers` reusable. It takes care of recycling objects and automatically instantiates new controller instances when the cache does not have any objects available for recycling (think `-dequeueReusableCellWithIdentifier:` from `UITableViews`). By reducing instantiation events, your app becomes faster and more responsive.
+`DEViewControllerCache` is an MIT-licensed cache system that makes `UIViewControllers` reusable. It takes care of recycling objects and automatically instantiates new controller instances when the cache does not have any objects available for recycling (think `-dequeueReusableCellWithIdentifier:` from `UITableViews`). It also automatically removes unused controllers from memory if a memory warning occurs. By reducing instantiation events, your app becomes faster and more responsive.
 
 ## Definitions
 
@@ -26,15 +26,6 @@ An instance of a `UIViewController` is said to be **preparing for reuse** if bot
  * the instance is already in the cache (i.e. it was previously--but no longer is--in use), and
  * the instance will soon be in use (i.e. it is about to be returned by `-controllerForControllerClass:`).
 
-### Repopulation Event
-
-`DEViewControllerCache` uses a custom `NSCache` object that is also sensitive to low memory warnings. The cache will automatically evict items as memory constraints increase, which means you don't have to worry about `DEViewControllerCache's` caching strategies.
-
-`DEViewControllerCache` has a more intelligent eviction process than `NSCache` provides: if a controller is evicted and the controller is currently in use, then that controller will be re-added in the next run loop iteration. Because the controller is in use, it is therefore already in memory and will remain there, so the cache simply re-acquires the object reference. `DEViewControllerCache` will retain a reference to that controller until it is added back into the cache. Such a process is referred to as a **repopulation event**.
-
-(Due to the limitations of the `NSCache` implementation, we cannot simply prevent certain items from being evicted from the cache, hence the repopulation approach.)
-
-Note that a repopulation event will not occur if the evicted controller is currently not in use.
 
 ## How It Works
 
@@ -115,9 +106,6 @@ The second tier is class specific. To remove all instances of a particular `UIVi
 
 The third tier is cache specific. To remove all instances of all `UIViewController` subclasses from a cache, use `-removeAllClassInstancesFromCache`.
 
-Note that these methods will not trigger a repopulation event, so it is guaranteed that manually removing a controller that is currently in use will actually remove it from the cache system.
-
-Also, in the event that calling any of these methods occurs while a repopulation event is in process (i.e. the controller(s) you have requested to be removed from the cache are currently not in the cache but pending repopulation), the controller objects will simply be removed from the repopulation process and, by extent, from the cache system.
 
 #### Example
 
